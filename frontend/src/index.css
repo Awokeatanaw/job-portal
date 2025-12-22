@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* src/index.css */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn { animation: fadeIn 0.8s ease-out; }
+.animate-slideUp { animation: slideUp 0.8s ease-out 0.2s both; }
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ethiopia-friendly font (optional) */
+body {
+  font-family: 'Inter', 'system-ui', sans-serif;
+}
+
+/* for trusted by */
+
+/* Ensure smooth infinite scroll */
+
+.trusted-by-track {
+  animation: scroll 40s linear infinite;
+}
+
+.trusted-by-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* for languge */
+
+.font-amharic {
+  font-family: 'Abyssinica SIL', 'Nyala', serif !important;
+  font-size: 1.15em;
+  line-height: 1.7;
+}
