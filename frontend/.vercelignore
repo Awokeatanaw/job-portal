@@ -1,0 +1,25 @@
+
+# Node modules
+node_modules
+
+# Build output (Vercel will rebuild anyway)
+dist
+
+# Environment variables (never expose secrets)
+.env
+.env.local
+.env.* 
+
+# Logs and caches
+*.log
+.cache
+.vite
+
+# Editor files
+.vscode
+.idea
+.DS_Store
+
+# Git files
+.git
+.gitignore
