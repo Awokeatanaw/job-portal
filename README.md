@@ -77,6 +77,7 @@ npm run dev
 4.Users can manage profiles and track activities
 
 ##📸 Screenshots
+<img width="1279" height="559" alt="Screenshot 2025-12-23 040741" src="https://github.com/user-attachments/assets/5cf3eeba-3c62-423c-bf04-2e11a303dd7f" />
 
 
 ##🤝 Contributing
