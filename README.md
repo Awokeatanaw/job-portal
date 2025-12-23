@@ -48,22 +48,24 @@ Employers can post jobs and manage applications, while job seekers can browse jo
 ```bash
 git clone https://github.com/your-username/job-portal.git
 cd job-portal
+```
 
 ### 2. Install dependencies
 ```bash
 cd frontend
 npm install
-
+```
 ### 3. Environment Variables
 
 Create a .env file in the frontend root:
 ```bash
 VITE_SUPABASE_URL=your_supabase_project_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-
+```
 ### 4. Run the application
 ```bash
 npm run dev
+```
 ## 💻 Usage
 
 1.Register as a Job Seeker or Employer
