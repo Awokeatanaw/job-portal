@@ -75,7 +75,9 @@ npm run dev
 3.Job seekers can browse jobs, save them, and apply
 
 4.Users can manage profiles and track activities
+
 ##📸 Screenshots
+
 
 ##🤝 Contributing
 
