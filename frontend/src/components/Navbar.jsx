@@ -151,7 +151,7 @@ const Navbar = () => {
                 <Link to="/contact" className="font-bold hover:text-indigo-600 transition">{t('Engage')}</Link>
 
                 <div className="flex items-center gap-6 ml-10">
-                  <LanguageSwitcher />
+                  
                   <button onClick={openLogin} className="px-8 py-4 border-4 border-indigo-600 text-indigo-600 rounded-full font-black hover:bg-indigo-600 hover:text-white shadow-lg">
                     {t('login')}
                   </button>
@@ -179,7 +179,7 @@ const Navbar = () => {
                 </Link>
 
                 <div className="flex items-center gap-6 border-l-4 border-indigo-300 pl-10">
-                  <LanguageSwitcher />
+                  
                   <button onClick={handleLogout} className="text-red-600 hover:text-red-700 flex items-center gap-3 font-black">
                     <LogOut size={26} /> {t('logout')}
                   </button>
@@ -209,7 +209,7 @@ const Navbar = () => {
                 </Link>
 
                 <div className="flex items-center gap-6 border-l-4 border-pink-300 pl-10">
-                  <LanguageSwitcher />
+                  
                   <button onClick={handleLogout} className="text-red-600 hover:text-red-700 flex items-center gap-3 font-black">
                     <LogOut size={26} /> {t('logout')}
                   </button>
@@ -220,7 +220,7 @@ const Navbar = () => {
 
           {/* MOBILE TOGGLE */}
           <div className="flex items-center gap-5 lg:hidden">
-            <LanguageSwitcher />
+            
             <button onClick={() => setMenuOpen(!menuOpen)} className="text-gray-800">
               {menuOpen ? <X size={36} /> : <Menu size={36} />}
             </button>
