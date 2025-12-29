@@ -1,9 +1,9 @@
-// src/components/Navbar.jsx ← FINAL & 100% WORKING (NO ERRORS)
+// src/components/Navbar.jsx — FULLY RESPONSIVE (320px → 4K) & CLEAN ON ULTRA-WIDE
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { 
   Menu, X, LogOut, Briefcase, Building2, User, 
-  Globe, Bookmark, CheckSquare, MessageSquare,Bell 
+  Globe, Bookmark, CheckSquare, Bell 
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "../lib/supabase";
@@ -12,8 +12,7 @@ import { t, setLanguage } from "../lib/language";
 
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
-import { JobContext } from "../context/JobContext";
-import { useNotification } from '../context/NotificationContext'; // <-- IMPORT THE HOOK
+import { useNotification } from '../context/NotificationContext';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,7 +22,7 @@ const Navbar = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const navigate = useNavigate();
-  const { unreadCount } = useNotification(); // <-- USE THE HOOK
+  const { unreadCount } = useNotification();
 
   const openLogin = () => {
     setShowLoginModal(true);
@@ -86,20 +85,20 @@ const Navbar = () => {
     const current = localStorage.getItem('lang') || 'en';
     return (
       <div className="relative group">
-        <button className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-full shadow-lg hover:shadow-xl transition-all border-2 border-indigo-200">
-          <Globe size={20} className="text-indigo-600" />
-          <span className="font-black text-indigo-700">{current === 'en' ? 'EN' : 'አአማ'}</span>
+        <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-full shadow-md hover:shadow-lg transition-all border border-indigo-200 text-sm font-bold">
+          <Globe size={18} className="text-indigo-600" />
+          <span className="text-indigo-700">{current === 'en' ? 'EN' : 'አማ'}</span>
         </button>
-        <div className="absolute top-14 right-0 w-52 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-300 z-50">
+        <div className="absolute top-full right-0 mt-2 w-48 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-300 z-50">
           <motion.div
             initial={{ y: -10, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-purple-200"
+            animate={{ y: 0, opacity: 1 }}
+            className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-purple-200 overflow-hidden"
           >
-            <button onClick={() => setLanguage('en')} className={`w-full px-6 py-5 text-left font-bold ${current === 'en' ? 'bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-700' : 'hover:bg-indigo-50'}`}>
+            <button onClick={() => setLanguage('en')} className={`w-full px-5 py-4 text-left font-bold transition ${current === 'en' ? 'bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-700' : 'hover:bg-indigo-50'}`}>
               English
             </button>
-            <button onClick={() => setLanguage('am')} className={`w-full px-6 py-5 text-left font-bold font-amharic ${current === 'am' ? 'bg-gradient-to-r from-purple-100 to-pink-100 text-pink-700' : 'hover:bg-pink-50'}`}>
+            <button onClick={() => setLanguage('am')} className={`w-full px-5 py-4 text-left font-bold font-amharic transition ${current === 'am' ? 'bg-gradient-to-r from-purple-100 to-pink-100 text-pink-700' : 'hover:bg-pink-50'}`}>
               አማርኛ
             </button>
           </motion.div>
@@ -126,163 +125,163 @@ const Navbar = () => {
   return (
     <>
       <motion.nav 
-        initial={{ y: -120 }}
+        initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="navbar bg-white/95 backdrop-blur-2xl shadow-2xl sticky top-0 z-40 border-b border-indigo-100"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-100"
       >
-        <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16 md:h-20">
+            {/* Logo */}
+            <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/")}>
+              <img src={logo} alt="JobPortal" className="w-10 h-10 md:w-12 md:h-12 rounded-full shadow-xl border-4 border-white" />
+              <h1 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                JobPortal
+              </h1>
+            </div>
 
-          {/* LOGO */}
-          <div className="flex items-center gap-4 cursor-pointer" onClick={() => navigate("/")}>
-            <img src={logo} alt="JobPortal" className="w-12 h-12 rounded-full shadow-2xl border-4 border-white" />
-            <h1 className="text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              JobPortal
-            </h1>
-          </div>
+            {/* Desktop Menu - Hidden on small screens, shown from lg+ */}
+            <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+              {!user ? (
+                <>
+                  <Link to="/jobslist" className="text-base xl:text-lg font-semibold text-gray-700 hover:text-indigo-600 transition">{t('jobs')}</Link>
+                  <Link to="/companies" className="text-base xl:text-lg font-semibold text-gray-700 hover:text-purple-600 transition">{t('companies')}</Link>
+                  <Link to="/about" className="text-base xl:text-lg font-semibold text-gray-700 hover:text-pink-600 transition">{t('insights')}</Link>
+                  <Link to="/contact" className="text-base xl:text-lg font-semibold text-gray-700 hover:text-indigo-600 transition">{t('engage')}</Link>
 
-          {/* DESKTOP MENU */}
-          <div className="hidden lg:flex items-center gap-8 text-gray-700 font-sans">
-            {!user ? (
-              <>
-                <Link to="/jobslist" className="font-bold hover:text-indigo-600 transition">{t('jobs')}</Link>
-                <Link to="/companies" className="font-bold hover:text-purple-600 transition">{t('companies')}</Link>
-                <Link to="/about" className="font-bold hover:text-pink-600 transition">{t('Insights')}</Link>
-                <Link to="/contact" className="font-bold hover:text-indigo-600 transition">{t('Engage')}</Link>
+                  <div className="flex items-center gap-4 ml-8">
+                    
+                    <button onClick={openLogin} className="px-6 py-3 border-2 border-indigo-600 text-indigo-600 rounded-full font-bold hover:bg-indigo-600 hover:text-white transition text-sm xl:text-base">
+                      {t('login')}
+                    </button>
+                    <button onClick={openRegister} className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-bold shadow-lg hover:shadow-xl transition text-sm xl:text-base">
+                      {t('signup')}
+                    </button>
+                  </div>
+                </>
+              ) : profile?.role === "candidate" ? (
+                <>
+                  <Link to="/jobslist" className="flex items-center gap-2 text-base xl:text-lg font-semibold hover:text-indigo-600 transition">
+                    <Briefcase size={20} /> {t('jobs')}
+                  </Link>
+                  <Link to="/companies" className="flex items-center gap-2 text-base xl:text-lg font-semibold hover:text-purple-600 transition">
+                    <Building2 size={20} /> {t('companies')}
+                  </Link>
+                  <Link to="/saved-jobs" className="flex items-center gap-2 text-base xl:text-lg font-semibold hover:text-pink-600 transition">
+                    <Bookmark size={20} /> {t('savedJobs')}
+                  </Link>
+                  <Link to="/applied" className="flex items-center gap-2 text-base xl:text-lg font-semibold hover:text-indigo-600 transition">
+                    <CheckSquare size={20} /> {t('applied')}
+                  </Link>
+                  <Link to="/profile" className="flex items-center gap-2 text-base xl:text-lg font-semibold hover:text-purple-600 transition">
+                    <User size={20} /> {t('profile')}
+                  </Link>
 
-                <div className="flex items-center gap-6 ml-10">
-                  
-                  <button onClick={openLogin} className="px-8 py-4 border-4 border-indigo-600 text-indigo-600 rounded-full font-black hover:bg-indigo-600 hover:text-white shadow-lg">
-                    {t('login')}
-                  </button>
-                  <button onClick={openRegister} className="px-8 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white rounded-full font-black shadow-2xl">
-                    {t('signup')}
-                  </button>
-                </div>
-              </>
-            ) : profile?.role === "candidate" ? (
-              <>
-                <Link to="/jobslist" className="flex items-center gap-3 font-bold hover:text-indigo-600 transition">
-                  <Briefcase size={24} /> {t('jobs')}
-                </Link>
-                <Link to="/companies" className="flex items-center gap-3 font-bold hover:text-purple-600 transition">
-                  <Building2 size={24} /> {t('companies')}
-                </Link>
-                <Link to="/saved-jobs" className="flex items-center gap-3 font-bold hover:text-pink-600 transition">
-                  <Bookmark size={24} /> {t('savedJobs')}
-                </Link>
-                <Link to="/applied" className="flex items-center gap-3 font-bold hover:text-indigo-600 transition">
-                  <CheckSquare size={24} /> {t('applied')}
-                </Link>
-                <Link to="/profile" className="flex items-center gap-3 font-bold hover:text-purple-600 transition">
-                  <User size={24} /> {t('profile')}
-                </Link>
+                  <div className="flex items-center gap-4 ml-8 border-l border-gray-300 pl-8">
+                   
+                    <button onClick={handleLogout} className="text-red-600 hover:text-red-700 flex items-center gap-2 font-bold text-base xl:text-lg">
+                      <LogOut size={22} /> {t('logout')}
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Link to="/post-job" className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-bold shadow-lg hover:shadow-xl transition text-sm xl:text-base">
+                    {t('postJob')}
+                  </Link>
+                  <Link to="/company-profile" className="flex items-center gap-2 text-base xl:text-lg font-semibold hover:text-purple-600 transition">
+                    <Building2 size={22} /> {t('companyProfile')}
+                  </Link>
+                  <Link to="/myjobs" className="flex items-center gap-2 text-base xl:text-lg font-semibold hover:text-indigo-600 transition">
+                    <Briefcase size={22} /> {t('myJobs')}
+                  </Link>
+                  <Link 
+                    to="/employernotifications" 
+                    className="relative flex items-center gap-2 text-base xl:text-lg font-semibold hover:text-pink-600 transition"
+                  >
+                    <Bell size={22} className="text-indigo-600" />
+                    {unreadCount > 0 && (
+                      <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse font-bold">
+                        {unreadCount > 99 ? '99+' : unreadCount}
+                      </span>
+                    )}
+                  </Link>
 
-                <div className="flex items-center gap-6 border-l-4 border-indigo-300 pl-10">
-                  
-                  <button onClick={handleLogout} className="text-red-600 hover:text-red-700 flex items-center gap-3 font-black">
-                    <LogOut size={26} /> {t('logout')}
-                  </button>
-                </div>
-              </>
-            ) : (
-              <>
-                <Link to="/post-job" className="px-8 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white rounded-full font-black shadow-2xl hover:shadow-pink-500/50">
-                  {t('postJob')}
-                </Link>
-                <Link to="/company-profile" className="flex items-center gap-3 font-bold hover:text-purple-600 transition">
-                  <Building2 size={26} /> {t('companyProfile')}
-                </Link>
-                <Link to="/myjobs" className="flex items-center gap-3 font-bold hover:text-indigo-600 transition">
-                  <Briefcase size={26} /> {t('myJobs')}
-                </Link>
-                <Link 
-                  to="/employernotifications" 
-                  className="relative flex items-center gap-3 font-bold hover:text-pink-600 transition"
-                   >
-                  <Bell size={26} className="text-indigo-600" />
-                  {unreadCount > 0 && (
-                  <span className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-green-500 to-green-700 text-white text-xs rounded-full flex items-center justify-center animate-pulse font-black shadow-lg">
-                  {unreadCount > 99 ? '99+' : unreadCount} 
-                  </span>
-                  )}
-                </Link>
+                  <div className="flex items-center gap-4 ml-8 border-l border-gray-300 pl-8">
+                    
+                    <button onClick={handleLogout} className="text-red-600 hover:text-red-700 flex items-center gap-2 font-bold text-base xl:text-lg">
+                      <LogOut size={22} /> {t('logout')}
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
 
-                <div className="flex items-center gap-6 border-l-4 border-pink-300 pl-10">
-                  
-                  <button onClick={handleLogout} className="text-red-600 hover:text-red-700 flex items-center gap-3 font-black">
-                    <LogOut size={26} /> {t('logout')}
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* MOBILE TOGGLE */}
-          <div className="flex items-center gap-5 lg:hidden">
-            
-            <button onClick={() => setMenuOpen(!menuOpen)} className="text-gray-800">
-              {menuOpen ? <X size={36} /> : <Menu size={36} />}
-            </button>
+            {/* Mobile Toggle */}
+            <div className="flex items-center gap-4 lg:hidden">
+              
+              <button onClick={() => setMenuOpen(!menuOpen)} className="text-gray-800 p-2">
+                {menuOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* MOBILE MENU */}
+        {/* Mobile Menu */}
         <AnimatePresence>
           {menuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-gradient-to-b from-indigo-50 via-purple-50 to-pink-50 border-t-4 border-indigo-300"
+              transition={{ duration: 0.4 }}
+              className="lg:hidden bg-white border-t border-gray-200 shadow-2xl"
             >
-              <div className="px-8 py-10 space-y-8 text-xl font-bold text-gray-800">
-                {/* Same logic as desktop */}
+              <div className="px-6 py-8 space-y-6">
                 {!user ? (
                   <>
-                    <Link to="/jobslist" onClick={() => setMenuOpen(false)} className="block py-0 mb-1 font-bold hover:text-indigo-600 transition">{t('jobs')}</Link>
-                    <Link to="/companies" onClick={() => setMenuOpen(false)} className="block py-0 mb-1 font-bold hover:text-indigo-600 transition">{t('companies')}</Link>
-                    <Link to="/about" onClick={() => setMenuOpen(false)} className="block py-0 mb-1 font-bold hover:text-indigo-600 transition">{t('insights')}</Link>
-                    <Link to="/contact" onClick={() => setMenuOpen(false)} className="block py-0 mb-1 font-bold hover:text-indigo-600 transition">{t('engage')}</Link>
-                    <button onClick={() => { openLogin(); setMenuOpen(false); }} className="w-full py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-3xl shadow-2xl">
-                      {t('login')}
-                    </button>
-                    <button onClick={() => { openRegister(); setMenuOpen(false); }} className="w-full py-5 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-3xl shadow-2xl">
-                      {t('signup')}
-                    </button>
+                    <Link to="/jobslist" onClick={() => setMenuOpen(false)} className="block py-3 text-lg font-semibold text-gray-800 hover:text-indigo-600">{t('jobs')}</Link>
+                    <Link to="/companies" onClick={() => setMenuOpen(false)} className="block py-3 text-lg font-semibold text-gray-800 hover:text-purple-600">{t('companies')}</Link>
+                    <Link to="/about" onClick={() => setMenuOpen(false)} className="block py-3 text-lg font-semibold text-gray-800 hover:text-pink-600">{t('insights')}</Link>
+                    <Link to="/contact" onClick={() => setMenuOpen(false)} className="block py-3 text-lg font-semibold text-gray-800 hover:text-indigo-600">{t('engage')}</Link>
+                    <div className="pt-6 space-y-4">
+                      <button onClick={() => { openLogin(); setMenuOpen(false); }} className="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-bold shadow-lg">
+                        {t('login')}
+                      </button>
+                      <button onClick={() => { openRegister(); setMenuOpen(false); }} className="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl font-bold shadow-lg">
+                        {t('signup')}
+                      </button>
+                    </div>
                   </>
                 ) : profile?.role === "candidate" ? (
                   <>
-                    <Link to="/jobslist" onClick={() => setMenuOpen(false)} className="flex items-center gap-4 py-4"><Briefcase /> {t('jobs')}</Link>
-                    <Link to="/companies" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 font-bold hover:text-purple-600 transition"><Building2 size={24} /> {t('companies')}</Link>
-                    <Link to="/saved-jobs" onClick={() => setMenuOpen(false)} className="flex items-center gap-4 py-4"><Bookmark /> {t('savedJobs')}</Link>
-                    <Link to="/applied" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 font-bold hover:text-indigo-600 transition"><CheckSquare size={24} /> {t('applied')}</Link>                            
-                    <Link to="/profile" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 font-bold hover:text-purple-600 transition"> <User size={24} /> {t('profile')}</Link>                 
-                    <button onClick={handleLogout} className="w-full py-5 bg-red-600 text-white rounded-3xl shadow-2xl flex items-center justify-center gap-4">
-                      <LogOut /> {t('logout')}
+                    <Link to="/jobslist" onClick={() => setMenuOpen(false)} className="flex items-center gap-4 py-4 text-lg font-semibold"><Briefcase size={24} /> {t('jobs')}</Link>
+                    <Link to="/companies" onClick={() => setMenuOpen(false)} className="flex items-center gap-4 py-4 text-lg font-semibold"><Building2 size={24} /> {t('companies')}</Link>
+                    <Link to="/saved-jobs" onClick={() => setMenuOpen(false)} className="flex items-center gap-4 py-4 text-lg font-semibold"><Bookmark size={24} /> {t('savedJobs')}</Link>
+                    <Link to="/applied" onClick={() => setMenuOpen(false)} className="flex items-center gap-4 py-4 text-lg font-semibold"><CheckSquare size={24} /> {t('applied')}</Link>
+                    <Link to="/profile" onClick={() => setMenuOpen(false)} className="flex items-center gap-4 py-4 text-lg font-semibold"><User size={24} /> {t('profile')}</Link>
+                    <button onClick={handleLogout} className="w-full py-4 mt-6 bg-red-600 text-white rounded-2xl font-bold flex items-center justify-center gap-4">
+                      <LogOut size={24} /> {t('logout')}
                     </button>
                   </>
                 ) : (
                   <>
-                    <Link to="/post-job" onClick={() => setMenuOpen(false)} className="block py-5 bg-gradient-to-r from-indigo-600 to-pink-600 text-white rounded-3xl shadow-2xl text-center">
+                    <Link to="/post-job" onClick={() => setMenuOpen(false)} className="block w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl text-center font-bold shadow-lg">
                       {t('postJob')}
                     </Link>
-                    <Link to="/company-profile" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 font-bold hover:text-purple-600 transition">
-                      <Building2 size={26} /> {t('companyProfile')}
-                    </Link>
-                    <Link to="/myjobs" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 font-bold hover:text-indigo-600 transition">
-                      <Briefcase size={26} /> {t('myJobs')}
-                    </Link>
-                    <Link to="/employernotifications" onClick={() => setMenuOpen(false)} className="relative flex items-center gap-3 font-bold hover:text-pink-600 transition">
-                     <Bell size={26} className="text-indigo-600" />
-                     {unreadCount > 0 && (
-                     <span className="absolute top-0 right-0 w-6 h-6 bg-gradient-to-r white white text-white text-xs rounded-full flex items-center justify-center animate-pulse font-black shadow-lg">
-                     {unreadCount > 99 ? '99+' : unreadCount} 
-                     </span>
+                    <Link to="/company-profile" onClick={() => setMenuOpen(false)} className="flex items-center gap-4 py-4 text-lg font-semibold"><Building2 size={24} /> {t('companyProfile')}</Link>
+                    <Link to="/myjobs" onClick={() => setMenuOpen(false)} className="flex items-center gap-4 py-4 text-lg font-semibold"><Briefcase size={24} /> {t('myJobs')}</Link>
+                    <Link to="/employernotifications" onClick={() => setMenuOpen(false)} className="relative flex items-center gap-4 py-4 text-lg font-semibold">
+                      <Bell size={24} className="text-indigo-600" />
+                      {unreadCount > 0 && (
+                        <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
+                          {unreadCount > 99 ? '99+' : unreadCount}
+                        </span>
                       )}
+                      {t('notifications')}
                     </Link>
-                    <button onClick={handleLogout} className="w-full py-5 bg-red-600 text-white rounded-3xl shadow-2xl flex items-center justify-center gap-4">
-                      <LogOut /> {t('logout')}
+                    <button onClick={handleLogout} className="w-full py-4 mt-6 bg-red-600 text-white rounded-2xl font-bold flex items-center justify-center gap-4">
+                      <LogOut size={24} /> {t('logout')}
                     </button>
                   </>
                 )}
@@ -292,7 +291,6 @@ const Navbar = () => {
         </AnimatePresence>
       </motion.nav>
 
-      {/* MODALS */}
       <LoginModal isOpen={showLoginModal} onClose={closeAll} onOpenRegister={openRegister} />
       <RegisterModal isOpen={showRegisterModal} onClose={closeAll} onOpenLogin={openLogin} />
     </>
