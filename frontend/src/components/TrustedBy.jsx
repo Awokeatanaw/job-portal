@@ -17,16 +17,15 @@ import toast from "react-hot-toast";
 
 const TrustedBy = () => {
   const [stats, setStats] = useState({
-    jobSeekers: 0,          // Only candidates
-    companiesHiring: 0,     // All companies
-    totalUsers: 0,          // All users for Powering X Success Stories
+    jobSeekers: 0,
+    companiesHiring: 0,
+    totalUsers: 0,
   });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Active Job Seekers: only candidates (role = 'candidate')
         const { count: seekersCount, error: seekersError } = await supabase
           .from('profiles')
           .select('*', { count: 'exact', head: true })
@@ -34,14 +33,12 @@ const TrustedBy = () => {
 
         if (seekersError) throw seekersError;
 
-        // Companies Hiring: real count of ALL companies
         const { count: companiesCount, error: compCountError } = await supabase
           .from('companies')
           .select('*', { count: 'exact', head: true });
 
         if (compCountError) throw compCountError;
 
-        // Total users for Powering X Success Stories (all profiles)
         const { count: totalUsersCount, error: totalError } = await supabase
           .from('profiles')
           .select('*', { count: 'exact', head: true });
@@ -68,7 +65,7 @@ const TrustedBy = () => {
     <section className="py-20 md:py-28 bg-gradient-to-b from-indigo-50/50 via-purple-50/30 to-pink-50/50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
-        {/* Premium Title */}
+        {/* Title */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -104,7 +101,7 @@ const TrustedBy = () => {
           </motion.p>
         </motion.div>
 
-        {/* Infinite Scrolling Logos — STATIC ONLY */}
+        {/* Infinite Scrolling Logos */}
         <div className="relative">
           <div className="overflow-hidden rounded-3xl">
             <motion.div
@@ -122,19 +119,17 @@ const TrustedBy = () => {
               onMouseEnter={(e) => e.currentTarget.style.animationPlayState = "paused"}
               onMouseLeave={(e) => e.currentTarget.style.animationPlayState = "running"}
             >
-              {/* Static logos only (duplicated for infinite scroll) */}
               {[...logos, ...logos].map((logo, index) => (
                 <motion.div
                   key={index}
                   whileHover={{ scale: 1.15, y: -12 }}
-                  className="flex-shrink-0 w-40 md:w-52 lg:w-64 h-28 md:h-32 bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/40 p-6 flex items-center justify-center group"
+                  className="flex-shrink-0 w-40 md:w-52 lg:w-64 h-28 md:h-32 bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/40 p-6 flex items-center justify-center group relative"
                 >
                   <img
                     src={logo}
                     alt={`Trusted company ${index + 1}`}
                     className="max-w-full max-h-full object-contain grayscale-0 group-hover:grayscale-0 transition-all duration-500"
                   />
-                  {/* Subtle glow on hover */}
                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-400/10 via-purple-400/10 to-pink-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </motion.div>
               ))}
@@ -146,7 +141,7 @@ const TrustedBy = () => {
           <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-pink-50/50 to-transparent z-10" />
         </div>
 
-        {/* Stats + CTA */}
+        {/* Stats */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -174,7 +169,7 @@ const TrustedBy = () => {
           </div>
         </motion.div>
 
-        {/* Final CTA */}
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
