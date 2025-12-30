@@ -1,3 +1,4 @@
+// src/components/Navbar.jsx — FULLY RESPONSIVE ULTRA-WIDE
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { 
@@ -103,18 +104,21 @@ const Navbar = () => {
         transition={{ duration: 0.7, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-100"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1920px] w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
-            
-            {/* Logo */}
+            {/* Logo — far left */}
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/")}>
-              <img src={logo} alt="JobPortal" className="w-10 h-10 md:w-12 md:h-12 rounded-full shadow-xl border-4 border-white" />
+              <img
+                src={logo}
+                alt="JobPortal"
+                className="w-10 h-10 md:w-12 md:h-12 rounded-full shadow-xl border-4 border-white"
+              />
               <h1 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                 JobPortal
               </h1>
             </div>
 
-            {/* Desktop Menu */}
+            {/* Desktop Menu — far right */}
             <div className="hidden lg:flex items-center gap-6 xl:gap-8">
               {!user ? (
                 <>
@@ -122,14 +126,8 @@ const Navbar = () => {
                   <Link to="/companies" className="text-base xl:text-lg font-semibold text-gray-700 hover:text-purple-600 transition">{t('companies')}</Link>
                   <Link to="/about" className="text-base xl:text-lg font-semibold text-gray-700 hover:text-pink-600 transition">{t('insights')}</Link>
                   <Link to="/contact" className="text-base xl:text-lg font-semibold text-gray-700 hover:text-indigo-600 transition">{t('engage')}</Link>
-                  <div className="flex items-center gap-4 ml-8">
-                    <button onClick={openLogin} className="px-6 py-3 border-2 border-indigo-600 text-indigo-600 rounded-full font-bold hover:bg-indigo-600 hover:text-white transition text-sm xl:text-base">
-                      {t('login')}
-                    </button>
-                    <button onClick={openRegister} className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-bold shadow-lg hover:shadow-xl transition text-sm xl:text-base">
-                      {t('signup')}
-                    </button>
-                  </div>
+                  <button onClick={openLogin} className="px-6 py-3 border-2 border-indigo-600 text-indigo-600 rounded-full font-bold hover:bg-indigo-600 hover:text-white transition text-sm xl:text-base"> {t('login')} </button>
+                  <button onClick={openRegister} className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-bold shadow-lg hover:shadow-xl transition text-sm xl:text-base"> {t('signup')} </button>
                 </>
               ) : profile?.role === "candidate" ? (
                 <>
@@ -138,7 +136,7 @@ const Navbar = () => {
                   <Link to="/saved-jobs" className="flex items-center gap-2 text-base xl:text-lg font-semibold hover:text-pink-600 transition"><Bookmark size={20} /> {t('savedJobs')}</Link>
                   <Link to="/applied" className="flex items-center gap-2 text-base xl:text-lg font-semibold hover:text-indigo-600 transition"><CheckSquare size={20} /> {t('applied')}</Link>
                   <Link to="/profile" className="flex items-center gap-2 text-base xl:text-lg font-semibold hover:text-purple-600 transition"><User size={20} /> {t('profile')}</Link>
-                  <button onClick={handleLogout} className="text-red-600 hover:text-red-700 flex items-center gap-2 font-bold text-base xl:text-lg ml-6"><LogOut size={22} /> {t('logout')}</button>
+                  <button onClick={handleLogout} className="text-red-600 hover:text-red-700 flex items-center gap-2 font-bold text-base xl:text-lg"> <LogOut size={22} /> {t('logout')} </button>
                 </>
               ) : (
                 <>
@@ -147,13 +145,9 @@ const Navbar = () => {
                   <Link to="/myjobs" className="flex items-center gap-2 text-base xl:text-lg font-semibold hover:text-indigo-600 transition"><Briefcase size={22} /> {t('myJobs')}</Link>
                   <Link to="/employernotifications" className="relative flex items-center gap-2 text-base xl:text-lg font-semibold hover:text-pink-600 transition">
                     <Bell size={22} className="text-indigo-600" />
-                    {unreadCount > 0 && (
-                      <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
-                        {unreadCount > 99 ? '99+' : unreadCount}
-                      </span>
-                    )}
+                    {unreadCount > 0 && <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">{unreadCount > 99 ? '99+' : unreadCount}</span>}
                   </Link>
-                  <button onClick={handleLogout} className="text-red-600 hover:text-red-700 flex items-center gap-2 font-bold text-base xl:text-lg ml-6"><LogOut size={22} /> {t('logout')}</button>
+                  <button onClick={handleLogout} className="text-red-600 hover:text-red-700 flex items-center gap-2 font-bold text-base xl:text-lg"> <LogOut size={22} /> {t('logout')} </button>
                 </>
               )}
             </div>
@@ -205,11 +199,7 @@ const Navbar = () => {
                     <Link to="/myjobs" onClick={() => setMenuOpen(false)} className="flex items-center gap-4 py-4 text-lg font-semibold"><Briefcase size={24} /> {t('myJobs')}</Link>
                     <Link to="/employernotifications" onClick={() => setMenuOpen(false)} className="relative flex items-center gap-4 py-4 text-lg font-semibold">
                       <Bell size={24} className="text-indigo-600" />
-                      {unreadCount > 0 && (
-                        <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
-                          {unreadCount > 99 ? '99+' : unreadCount}
-                        </span>
-                      )}
+                      {unreadCount > 0 && <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">{unreadCount > 99 ? '99+' : unreadCount}</span>}
                       {t('notifications')}
                     </Link>
                     <button onClick={handleLogout} className="w-full py-4 mt-6 bg-red-600 text-white rounded-2xl font-bold flex items-center justify-center gap-4"><LogOut size={24} /> {t('logout')}</button>
