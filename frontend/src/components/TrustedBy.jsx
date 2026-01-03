@@ -63,7 +63,8 @@ const TrustedBy = () => {
 
   return (
     <section className="py-20 md:py-28 bg-gradient-to-b from-indigo-50/50 via-purple-50/30 to-pink-50/50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      {/* Changed: max-w-7xl stays for smaller screens, but expands on 2xl+ screens */}
+      <div className="max-w-7xl 2xl:max-w-[1800px] 3xl:max-w-[2200px] mx-auto px-6 lg:px-8 2xl:px-16 3xl:px-24">
 
         {/* Title */}
         <motion.div
@@ -77,16 +78,16 @@ const TrustedBy = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-base md:text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 uppercase tracking-widest"
+            className="text-base md:text-lg 2xl:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 uppercase tracking-widest"
           >
-            Trusted by Ethiopia’s Top Companies
+            Trusted by Ethiopia's Top Companies
           </motion.p>
 
           <motion.h2
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="mt-4 text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight"
+            className="mt-4 text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-extrabold text-gray-900 leading-tight"
           >
             Powering <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">{stats.totalUsers.toLocaleString() || '50K+'}</span> Success Stories
           </motion.h2>
@@ -95,7 +96,7 @@ const TrustedBy = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="mt-6 text-lg md:text-xl text-gray-700 max-w-4xl mx-auto font-medium"
+            className="mt-6 text-lg md:text-xl 2xl:text-2xl text-gray-700 max-w-4xl 2xl:max-w-5xl 3xl:max-w-6xl mx-auto font-medium"
           >
             From startups in Bole to enterprises in Hawassa — the best companies hire with <span className="font-bold text-purple-600">JobPortal</span>
           </motion.p>
@@ -105,7 +106,7 @@ const TrustedBy = () => {
         <div className="relative">
           <div className="overflow-hidden rounded-3xl">
             <motion.div
-              className="flex gap-12 md:gap-20 items-center py-10"
+              className="flex gap-12 md:gap-20 2xl:gap-28 3xl:gap-36 items-center py-10"
               animate={{ x: [0, "-50%"] }}
               transition={{
                 x: {
@@ -123,7 +124,7 @@ const TrustedBy = () => {
                 <motion.div
                   key={index}
                   whileHover={{ scale: 1.15, y: -12 }}
-                  className="flex-shrink-0 w-40 md:w-52 lg:w-64 h-28 md:h-32 bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/40 p-6 flex items-center justify-center group relative"
+                  className="flex-shrink-0 w-40 md:w-52 lg:w-64 2xl:w-80 3xl:w-96 h-28 md:h-32 2xl:h-40 3xl:h-48 bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/40 p-6 2xl:p-8 flex items-center justify-center group relative"
                 >
                   <img
                     src={logo}
@@ -137,8 +138,8 @@ const TrustedBy = () => {
           </div>
 
           {/* Gradient Fade Edges */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-indigo-50/50 to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-pink-50/50 to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-32 2xl:w-48 bg-gradient-to-r from-indigo-50/50 to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-32 2xl:w-48 bg-gradient-to-l from-pink-50/50 to-transparent z-10" />
         </div>
 
         {/* Stats */}
@@ -147,25 +148,25 @@ const TrustedBy = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 2xl:gap-12 3xl:gap-16 mt-20"
         >
-          <div className="text-center bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/50">
-            <h3 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+          <div className="text-center bg-white/70 backdrop-blur-xl rounded-3xl p-8 2xl:p-12 3xl:p-16 shadow-xl border border-white/50">
+            <h3 className="text-5xl 2xl:text-6xl 3xl:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
               {stats.jobSeekers.toLocaleString() || '50K+'}
             </h3>
-            <p className="text-xl font-bold text-gray-800 mt-2">Active Job Seekers</p>
+            <p className="text-xl 2xl:text-2xl 3xl:text-3xl font-bold text-gray-800 mt-2">Active Job Seekers</p>
           </div>
-          <div className="text-center bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/50">
-            <h3 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+          <div className="text-center bg-white/70 backdrop-blur-xl rounded-3xl p-8 2xl:p-12 3xl:p-16 shadow-xl border border-white/50">
+            <h3 className="text-5xl 2xl:text-6xl 3xl:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
               {stats.companiesHiring.toLocaleString() || '1,500+'}
             </h3>
-            <p className="text-xl font-bold text-gray-800 mt-2">Companies Hiring</p>
+            <p className="text-xl 2xl:text-2xl 3xl:text-3xl font-bold text-gray-800 mt-2">Companies Hiring</p>
           </div>
-          <div className="text-center bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/50">
-            <h3 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-rose-600">
+          <div className="text-center bg-white/70 backdrop-blur-xl rounded-3xl p-8 2xl:p-12 3xl:p-16 shadow-xl border border-white/50">
+            <h3 className="text-5xl 2xl:text-6xl 3xl:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-rose-600">
               98%
             </h3>
-            <p className="text-xl font-bold text-gray-800 mt-2">Satisfaction Rate</p>
+            <p className="text-xl 2xl:text-2xl 3xl:text-3xl font-bold text-gray-800 mt-2">Satisfaction Rate</p>
           </div>
         </motion.div>
 
@@ -176,14 +177,14 @@ const TrustedBy = () => {
           transition={{ delay: 0.6 }}
           className="text-center mt-20"
         >
-          <p className="text-xl text-gray-700 mb-6">
+          <p className="text-xl 2xl:text-2xl text-gray-700 mb-6">
             Ready to hire top Ethiopian talent?
           </p>
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             href="/post-job"
-            className="inline-flex items-center gap-4 px-12 py-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-xl font-bold rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
+            className="inline-flex items-center gap-4 px-12 py-6 2xl:px-16 2xl:py-8 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-xl 2xl:text-2xl font-bold rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
           >
             Post a Job for Free
           </motion.a>
