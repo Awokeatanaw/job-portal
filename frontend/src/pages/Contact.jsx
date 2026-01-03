@@ -85,7 +85,12 @@ export default function Contact() {
       ))}
 
       <div className="relative z-10 py-20 px-6">
-        <div className="max-w-7xl mx-auto">
+        {/* 
+          RESPONSIVE CONTAINER: 
+          - max-w-7xl on screens <1920px
+          - full width with padding on ≥1920px
+        */}
+        <div className="max-w-7xl mx-auto [@media(min-width:1920px)]:max-w-full [@media(min-width:1920px)]:px-20">
 
           {/* HERO TITLE */}
           <motion.div
