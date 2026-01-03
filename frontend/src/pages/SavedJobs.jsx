@@ -175,7 +175,12 @@ export default function SavedJobs() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50 py-16">
-      <div className="max-w-7xl mx-auto px-6">
+      {/* 
+        RESPONSIVE CONTAINER: 
+        - max-w-7xl on screens <1920px
+        - full width with padding on ≥1920px
+      */}
+      <div className="max-w-7xl mx-auto px-6 [@media(min-width:1920px)]:max-w-full [@media(min-width:1920px)]:px-20">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-pink-600 mb-4">
             My Saved Jobs

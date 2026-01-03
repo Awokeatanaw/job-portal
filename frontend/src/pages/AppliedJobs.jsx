@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
   Briefcase, Building2, Calendar, Clock, MapPin, 
-  CheckCircle, XCircle, Eye, FileText, DollarSign   // ← THIS WAS MISSING!
+  CheckCircle, XCircle, Eye, FileText, DollarSign
 } from 'lucide-react';
 
 export default function AppliedJobs() {
@@ -24,7 +24,7 @@ export default function AppliedJobs() {
         return;
       }
 
-      const { data, error } = await supabase
+      const {  applications, error } = await supabase
         .from('applications')
         .select(`
           id,
@@ -52,7 +52,7 @@ export default function AppliedJobs() {
         .order('applied_at', { ascending: false });
 
       if (error) throw error;
-      setApplications(data || []);
+      setApplications(applications || []);
 
     } catch (err) {
       console.error(err);
@@ -84,7 +84,12 @@ export default function AppliedJobs() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50 py-16">
-      <div className="max-w-7xl mx-auto px-6">
+      {/* 
+        RESPONSIVE CONTAINER: 
+        - max-w-7xl on screens <1920px
+        - full width with padding on ≥1920px
+      */}
+      <div className="max-w-7xl mx-auto px-6 [@media(min-width:1920px)]:max-w-full [@media(min-width:1920px)]:px-20">
         <h1 className="text-6xl font-bold text-center mb-4">My Applications</h1>
         <p className="text-2xl text-center text-gray-600 mb-16">
           {applications.length} job{applications.length !== 1 ? 's' : ''} applied
