@@ -117,7 +117,12 @@ export default function CompanyProfile() {
       ))}
 
       <div className="relative z-10 py-20 px-6">
-        <div className="max-w-6xl mx-auto">
+        {/* 
+          RESPONSIVE CONTAINER: 
+          - max-w-6xl on mobile/laptop (up to 1919px)
+          - full width with padding on ≥1920px (ultra-wide / 4K)
+        */}
+        <div className="max-w-6xl mx-auto [@media(min-width:1920px)]:max-w-full [@media(min-width:1920px)]:px-20">
 
           {/* HERO TITLE */}
           <motion.div
@@ -212,7 +217,7 @@ export default function CompanyProfile() {
               {/* FORM OR VIEW MODE */}
               {editing ? (
                 <div className="grid md:grid-cols-2 gap-8">
-                  <input placeholder="Website[](https://example.com)" value={formData.website} onChange={e => setFormData(prev => ({ ...prev, website: e.target.value }))} className="px-8 py-6 bg-white/70 border-2 border-indigo-200 rounded-2xl text-gray-800 placeholder-gray-500 text-xl focus:border-indigo-600 focus:outline-none transition" />
+                  <input placeholder="Website (https://example.com)" value={formData.website} onChange={e => setFormData(prev => ({ ...prev, website: e.target.value }))} className="px-8 py-6 bg-white/70 border-2 border-indigo-200 rounded-2xl text-gray-800 placeholder-gray-500 text-xl focus:border-indigo-600 focus:outline-none transition" />
                   <input placeholder="Industry (e.g. Technology)" value={formData.industry} onChange={e => setFormData(prev => ({ ...prev, industry: e.target.value }))} className="px-8 py-6 bg-white/70 border-2 border-indigo-200 rounded-2xl text-gray-800 placeholder-gray-500 text-xl focus:border-indigo-600 focus:outline-none transition" />
                   <input placeholder="Founded Year (e.g. 2015)" value={formData.founded_year} onChange={e => setFormData(prev => ({ ...prev, founded_year: e.target.value }))} className="px-8 py-6 bg-white/70 border-2 border-indigo-200 rounded-2xl text-gray-800 placeholder-gray-500 text-xl focus:border-indigo-600 focus:outline-none transition" />
                   <input placeholder="Company Size (e.g. 50-200)" value={formData.size} onChange={e => setFormData(prev => ({ ...prev, size: e.target.value }))} className="px-8 py-6 bg-white/70 border-2 border-indigo-200 rounded-2xl text-gray-800 placeholder-gray-500 text-xl focus:border-indigo-600 focus:outline-none transition" />
