@@ -55,21 +55,21 @@ export default function MyJobs() {
 
   // DELETE — WORKS 100%
   const handleDelete = async (jobId) => {
-  if (!confirm('Delete this job permanently?\nAll applications and saved entries will also be removed.')) 
-    return;
+    if (!confirm('Delete this job permanently?\nAll applications and saved entries will also be removed.')) 
+      return;
 
-  const { error } = await supabase
-    .from('jobs')
-    .delete()
-    .eq('id', jobId);
+    const { error } = await supabase
+      .from('jobs')
+      .delete()
+      .eq('id', jobId);
 
-  if (error) {
-    toast.error('Delete failed: ' + error.message);
-  } else {
-    setJobs(prev => prev.filter(j => j.id !== jobId));
-    toast.success('Job deleted successfully!');
-  }
-};
+    if (error) {
+      toast.error('Delete failed: ' + error.message);
+    } else {
+      setJobs(prev => prev.filter(j => j.id !== jobId));
+      toast.success('Job deleted successfully!');
+    }
+  };
 
   // EDIT — WORKS 100%
   const handleEdit = (jobId) => {
@@ -102,11 +102,12 @@ export default function MyJobs() {
   if (jobs.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50 py-20">
+        {/* Responsive container for empty state */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto text-center"
+          className="max-w-4xl mx-auto px-6 [@media(min-width:1920px)]:max-w-full [@media(min-width:1920px)]:px-20 text-center"
         >
           <motion.div animate={{ y: [0, -20, 0] }} transition={{ duration: 4, repeat: Infinity }}>
             <Briefcase size={140} className="mx-auto text-indigo-500 mb-8 opacity-90" />
@@ -128,7 +129,12 @@ export default function MyJobs() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50 py-16">
-      <div className="max-w-7xl mx-auto px-6">
+      {/* 
+        MAIN RESPONSIVE CONTAINER
+        - max-w-7xl on normal screens
+        - full width with padding on ≥1920px
+      */}
+      <div className="max-w-7xl mx-auto px-6 [@media(min-width:1920px)]:max-w-full [@media(min-width:1920px)]:px-20">
 
         <motion.div
           initial={{ opacity: 0, y: -50 }}

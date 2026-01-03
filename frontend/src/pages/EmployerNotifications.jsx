@@ -146,7 +146,12 @@ export default function EmployerNotifications() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50 py-16 px-6">
-      <div className="max-w-5xl mx-auto">
+      {/* 
+        RESPONSIVE CONTAINER: 
+        - max-w-5xl on screens <1920px
+        - full width with padding on ≥1920px
+      */}
+      <div className="max-w-5xl mx-auto [@media(min-width:1920px)]:max-w-full [@media(min-width:1920px)]:px-20">
 
         {/* HEADER */}
         <motion.div initial={{ y: -60 }} animate={{ y: 0 }} className="text-center mb-16">

@@ -158,11 +158,16 @@ export default function PostJob() {
       </div>
 
       <div className="relative z-10 py-16 px-6">
+        {/* 
+          RESPONSIVE CONTAINER: 
+          - max-w-6xl on screens <1920px
+          - full width with padding on ≥1920px
+        */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-6xl mx-auto"
+          className="max-w-6xl mx-auto [@media(min-width:1920px)]:max-w-full [@media(min-width:1920px)]:px-20"
         >
           {/* Hero Title */}
           <div className="text-center mb-16">
@@ -338,7 +343,6 @@ export default function PostJob() {
                   <option value="Telecommunications">Engineering</option>
                   <option value="Telecommunications">Human Resources</option>
                   <option value="Telecommunications">Logistics</option>
-
                   <option value="Other">Other</option>
                 </select>
               </motion.div>
