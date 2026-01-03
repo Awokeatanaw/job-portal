@@ -36,11 +36,7 @@ const Home = () => {
       <JobCategorySection categories={categoryList} />
       
       {/* FeaturedJobs wrapper with responsive container */}
-      <section className="py-10 md:py-16">
-        <div className="max-w-7xl 2xl:max-w-[1800px] 3xl:max-w-[2200px] mx-auto px-6 lg:px-8 2xl:px-16 3xl:px-24">
-          <FeaturedJobs jobs={jobList.slice(0, 6)} />
-        </div>
-      </section>
+      <FeaturedJobs />
 
       <LoginModal
         isOpen={isLoginModalOpen}
