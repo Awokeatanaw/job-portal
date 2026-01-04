@@ -84,17 +84,17 @@ export default function AppliedJobs() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50 py-12 sm:py-16">
-      {/* Fluid container that scales up to huge screens but stays readable */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:max-w-8xl 2xl:max-w-9xl">
+      {/* Full-width container: no max-width on huge screens */}
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4">
           My Applications
         </h1>
-        <p className="text-lg sm:text-xl md:text-2xl text-center text-gray-600 mb-12 md:mb-16">
+        <p className="text-lg sm:text-xl md:text-2xl text-center text-gray-600 mb-12 md:mb-16 max-w-4xl mx-auto">
           {applications.length} job{applications.length !== 1 ? 's' : ''} applied
         </p>
 
         {applications.length === 0 ? (
-          <div className="text-center py-16 sm:py-20">
+          <div className="text-center py-16 sm:py-20 max-w-3xl mx-auto">
             <Briefcase size={80} className="mx-auto text-gray-300 mb-6 sm:mb-8" />
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-600">No applications yet</h2>
             <Link
@@ -105,7 +105,7 @@ export default function AppliedJobs() {
             </Link>
           </div>
         ) : (
-          <div className="space-y-6 sm:space-y-8">
+          <div className="space-y-6 sm:space-y-8 max-w-7xl mx-auto">
             {applications.map((app) => {
               const job = app.jobs;
               const company = job.companies;
@@ -115,7 +115,7 @@ export default function AppliedJobs() {
                   key={app.id}
                   className="bg-white rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-xl transition-shadow p-6 sm:p-8"
                 >
-                  <div className="flex flex-col md:flex-row gap-6 sm:gap-8">
+                  <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
                     <div className="w-20 sm:w-24 md:w-28 h-20 sm:h-24 md:h-28 rounded-xl sm:rounded-2xl bg-gray-50 border-2 sm:border-4 border-indigo-100 flex items-center justify-center overflow-hidden shrink-0">
                       {company.logo_url ? (
                         <img
@@ -124,16 +124,16 @@ export default function AppliedJobs() {
                           className="w-full h-full object-contain p-1 sm:p-2"
                         />
                       ) : (
-                        <Building2 size={32} className="sm:size-48 text-indigo-500" />
+                        <Building2 size={32} className="text-indigo-500" />
                       )}
                     </div>
 
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0"> {/* prevent flex item from shrinking too much */}
                       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-4">
                         <div>
                           <Link
                             to={`/job/${job.slug || job.id}`}
-                            className="text-xl sm:text-2xl md:text-3xl font-bold hover:text-indigo-600"
+                            className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold hover:text-indigo-600 break-words"
                           >
                             {job.title}
                           </Link>
@@ -142,7 +142,7 @@ export default function AppliedJobs() {
                           </p>
                         </div>
                         <span
-                          className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm whitespace-nowrap ${
+                          className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm whitespace-nowrap mt-2 sm:mt-0 ${
                             getStatusBadge(app.status)
                           }`}
                         >
@@ -150,22 +150,22 @@ export default function AppliedJobs() {
                         </span>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 text-gray-600 mb-5 sm:mb-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-gray-600 mb-5 sm:mb-6">
                         {job.location && (
                           <div className="flex items-center gap-2">
-                            <MapPin size={16} className="text-indigo-500" />
-                            <span className="text-sm sm:text-base">{job.location}</span>
+                            <MapPin size={16} className="text-indigo-500 flex-shrink-0" />
+                            <span className="text-sm sm:text-base break-words">{job.location}</span>
                           </div>
                         )}
                         <div className="flex items-center gap-2">
-                          <Calendar size={16} className="text-pink-500" />
+                          <Calendar size={16} className="text-pink-500 flex-shrink-0" />
                           <span className="text-sm sm:text-base">
                             {new Date(app.applied_at).toLocaleDateString()}
                           </span>
                         </div>
                         {job.salary_min && (
-                          <div className="flex items-center gap-2 col-span-full sm:col-span-2 md:col-span-1 lg:col-span-2">
-                            <DollarSign size={16} className="text-green-600" />
+                          <div className="flex items-center gap-2 col-span-full sm:col-span-2 lg:col-span-2">
+                            <DollarSign size={16} className="text-green-600 flex-shrink-0" />
                             <span className="font-bold text-green-600 text-sm sm:text-base">
                               ETB {Number(job.salary_min).toLocaleString()}
                               {job.salary_max
