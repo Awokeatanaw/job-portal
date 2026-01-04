@@ -1,4 +1,4 @@
-// src/pages/AppliedJobs.jsx ← FINAL 100% WORKING (NO ERRORS)
+// src/pages/AppliedJobs.jsx
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { Link, useNavigate } from 'react-router-dom';
@@ -24,7 +24,7 @@ export default function AppliedJobs() {
         return;
       }
 
-      const {  applications, error } = await supabase
+      const { data, error } = await supabase
         .from('applications')
         .select(`
           id,
@@ -52,7 +52,7 @@ export default function AppliedJobs() {
         .order('applied_at', { ascending: false });
 
       if (error) throw error;
-      setApplications(applications || []);
+      setApplications(data || []);
 
     } catch (err) {
       console.error(err);
@@ -83,82 +83,109 @@ export default function AppliedJobs() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50 py-16">
-      {/* 
-        RESPONSIVE CONTAINER: 
-        - max-w-7xl on screens <1920px
-        - full width with padding on ≥1920px
-      */}
-      <div className="max-w-7xl mx-auto px-6 [@media(min-width:1920px)]:max-w-full [@media(min-width:1920px)]:px-20">
-        <h1 className="text-6xl font-bold text-center mb-4">My Applications</h1>
-        <p className="text-2xl text-center text-gray-600 mb-16">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50 py-12 sm:py-16">
+      {/* Fluid container that scales up to huge screens but stays readable */}
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:max-w-8xl 2xl:max-w-9xl">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4">
+          My Applications
+        </h1>
+        <p className="text-lg sm:text-xl md:text-2xl text-center text-gray-600 mb-12 md:mb-16">
           {applications.length} job{applications.length !== 1 ? 's' : ''} applied
         </p>
 
         {applications.length === 0 ? (
-          <div className="text-center py-20">
-            <Briefcase size={100} className="mx-auto text-gray-300 mb-8" />
-            <h2 className="text-4xl font-bold text-gray-600">No applications yet</h2>
-            <Link to="/jobs" className="inline-block mt-8 bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-xl font-bold px-12 py-5 rounded-full">
+          <div className="text-center py-16 sm:py-20">
+            <Briefcase size={80} className="mx-auto text-gray-300 mb-6 sm:mb-8" />
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-600">No applications yet</h2>
+            <Link
+              to="/jobs"
+              className="inline-block mt-6 sm:mt-8 bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-lg sm:text-xl font-bold px-8 sm:px-12 py-4 sm:py-5 rounded-full hover:opacity-90 transition"
+            >
               Browse Jobs
             </Link>
           </div>
         ) : (
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {applications.map((app) => {
               const job = app.jobs;
               const company = job.companies;
 
               return (
-                <div key={app.id} className="bg-white rounded-3xl shadow-xl p-8 hover:shadow-2xl transition">
-                  <div className="flex flex-col md:flex-row gap-8">
-                    <div className="w-28 h-28 rounded-2xl bg-gray-50 border-4 border-indigo-100 flex items-center justify-center overflow-hidden">
+                <div
+                  key={app.id}
+                  className="bg-white rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-xl transition-shadow p-6 sm:p-8"
+                >
+                  <div className="flex flex-col md:flex-row gap-6 sm:gap-8">
+                    <div className="w-20 sm:w-24 md:w-28 h-20 sm:h-24 md:h-28 rounded-xl sm:rounded-2xl bg-gray-50 border-2 sm:border-4 border-indigo-100 flex items-center justify-center overflow-hidden shrink-0">
                       {company.logo_url ? (
-                        <img src={company.logo_url} alt="" className="w-full h-full object-cover" />
+                        <img
+                          src={company.logo_url}
+                          alt={company.name}
+                          className="w-full h-full object-contain p-1 sm:p-2"
+                        />
                       ) : (
-                        <Building2 size={48} className="text-indigo-500" />
+                        <Building2 size={32} className="sm:size-48 text-indigo-500" />
                       )}
                     </div>
 
                     <div className="flex-1">
-                      <div className="flex justify-between items-start mb-4">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-4">
                         <div>
-                          <Link to={`/job/${job.slug || job.id}`} className="text-3xl font-bold hover:text-indigo-600">
+                          <Link
+                            to={`/job/${job.slug || job.id}`}
+                            className="text-xl sm:text-2xl md:text-3xl font-bold hover:text-indigo-600"
+                          >
                             {job.title}
                           </Link>
-                          <p className="text-xl text-gray-600 mt-1">{company.name}</p>
+                          <p className="text-base sm:text-lg text-gray-600 mt-1">
+                            {company.name}
+                          </p>
                         </div>
-                        <span className={`px-6 py-3 rounded-full font-bold ${getStatusBadge(app.status)}`}>
+                        <span
+                          className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm whitespace-nowrap ${
+                            getStatusBadge(app.status)
+                          }`}
+                        >
                           {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
                         </span>
                       </div>
 
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-gray-600 mb-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 text-gray-600 mb-5 sm:mb-6">
                         {job.location && (
                           <div className="flex items-center gap-2">
-                            <MapPin size={18} className="text-indigo-500" />
-                            <span>{job.location}</span>
+                            <MapPin size={16} className="text-indigo-500" />
+                            <span className="text-sm sm:text-base">{job.location}</span>
                           </div>
                         )}
                         <div className="flex items-center gap-2">
-                          <Calendar size={18} className="text-pink-500" />
-                          <span>{new Date(app.applied_at).toLocaleDateString()}</span>
+                          <Calendar size={16} className="text-pink-500" />
+                          <span className="text-sm sm:text-base">
+                            {new Date(app.applied_at).toLocaleDateString()}
+                          </span>
                         </div>
                         {job.salary_min && (
-                          <div className="flex items-center gap-2 col-span-2">
-                            <DollarSign size={18} className="text-green-600" />
-                            <span className="font-bold text-green-600">
+                          <div className="flex items-center gap-2 col-span-full sm:col-span-2 md:col-span-1 lg:col-span-2">
+                            <DollarSign size={16} className="text-green-600" />
+                            <span className="font-bold text-green-600 text-sm sm:text-base">
                               ETB {Number(job.salary_min).toLocaleString()}
-                              {job.salary_max ? ` - ${Number(job.salary_max).toLocaleString()}` : '+'}
+                              {job.salary_max
+                                ? ` – ${Number(job.salary_max).toLocaleString()}`
+                                : '+'}
                             </span>
                           </div>
                         )}
                       </div>
 
-                      <div className="flex gap-4">
+                      <div className="flex flex-wrap gap-3">
                         {app.resume_url && (
-                          <a href={app.resume_url} target="_blank" className="flex items-center gap-2 text-blue-600 hover:underline">
-                            <FileText size={18} /> Resume
+                          <a
+                            href={app.resume_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 text-blue-600 hover:underline text-sm sm:text-base"
+                          >
+                            <FileText size={16} />
+                            Resume
                           </a>
                         )}
                       </div>
