@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
-  Briefcase, Building2, Calendar, Clock, MapPin, 
-  CheckCircle, XCircle, Eye, FileText, DollarSign
+  Briefcase, Building2, Calendar, MapPin, FileText, DollarSign
 } from 'lucide-react';
 
 export default function AppliedJobs() {
@@ -84,17 +83,21 @@ export default function AppliedJobs() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50 py-12 sm:py-16">
-      {/* Full-width container: no max-width on huge screens */}
-      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
+      {/* 
+        FULL-WIDTH CONTAINER ON ALL SCREENS
+        Padding increases with screen size — NO max-width EVER
+      */}
+      <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
+
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4">
           My Applications
         </h1>
-        <p className="text-lg sm:text-xl md:text-2xl text-center text-gray-600 mb-12 md:mb-16 max-w-4xl mx-auto">
+        <p className="text-lg sm:text-xl md:text-2xl text-center text-gray-600 mb-12 md:mb-16">
           {applications.length} job{applications.length !== 1 ? 's' : ''} applied
         </p>
 
         {applications.length === 0 ? (
-          <div className="text-center py-16 sm:py-20 max-w-3xl mx-auto">
+          <div className="text-center py-16 sm:py-20">
             <Briefcase size={80} className="mx-auto text-gray-300 mb-6 sm:mb-8" />
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-600">No applications yet</h2>
             <Link
@@ -105,7 +108,8 @@ export default function AppliedJobs() {
             </Link>
           </div>
         ) : (
-          <div className="space-y-6 sm:space-y-8 max-w-7xl mx-auto">
+          /* NO max-w HERE — cards will use full available width */
+          <div className="space-y-6 sm:space-y-8">
             {applications.map((app) => {
               const job = app.jobs;
               const company = job.companies;
@@ -128,7 +132,7 @@ export default function AppliedJobs() {
                       )}
                     </div>
 
-                    <div className="flex-1 min-w-0"> {/* prevent flex item from shrinking too much */}
+                    <div className="flex-1 min-w-0">
                       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-4">
                         <div>
                           <Link
